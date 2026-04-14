@@ -1,0 +1,44 @@
+# Todo
+
+- [x] Inspect the current SANOH hero title and identify why the glitch effect is not visibly reading on the live page.
+- [x] Inspect the FULLSTACK SCRIPTER subtitle styling and identify what is making it feel visually off.
+- [x] Implement a stronger SANOH glitch treatment and refine the subtitle into a cleaner premium label.
+- [x] Verify the updated hero title and subtitle in the preview.
+- [x] Inspect the current custom cursor implementation and identify why the green orb is no longer centered within the ring.
+- [x] Restore precise cursor centering without changing the user-approved cursor size or behavior.
+- [x] Add restrained blur refinements across the interface where they improve depth and polish.
+- [x] Verify the updated cursor and blur treatment in the live preview.
+- [x] Roll back the portfolio project to checkpoint version 4184cf76 as requested by the user.
+- [x] Confirm the rollback result and current project state after restoration.
+- [x] Inspect the hero section and identify which green orb needs to be re-centered.
+- [x] Confirm the current cursor centering implementation after rollback.
+- [x] Re-center the green cursor orb globally so it stays aligned inside the ring at all times.
+- [x] Verify the live cursor alignment and save the corrected version.
+- [x] Inspect the current cursor and button hover implementation to plan a softer expansion effect.
+- [x] Add a softer cursor hover expansion effect for buttons without disturbing the centered cursor behavior.
+- [x] Verify the new cursor hover motion in the live preview and save the updated version.
+- [x] Inspect the current cursor animation and identify how to reintroduce controlled orb escape motion beyond the outer ring.
+- [x] Inspect which panels currently feel like they jump in size on hover and identify the scaling rules causing that abrupt behavior.
+- [x] Implement a smoother, more natural cursor interaction with stylized orb escape motion.
+- [x] Replace abrupt panel hover enlargement with animated, eased transitions.
+- [x] Verify the updated cursor and panel interactions in the live preview and save the refined version.
+- [x] Reassess why the current green orb now feels hard-set instead of freely escaping around the cursor ring.
+- [x] Restore interactive orb motion so the green orb can move around and escape naturally again.
+- [x] Verify the restored free-moving orb in the live preview without losing the smoother panel hover animations.
+- [x] Inspect the current cursor motion values against the intended Version 1 bounded escape behavior.
+- [x] Revert only the cursor motion so the green orb escapes within the cursor boundary relationship, not far outside it.
+- [x] Verify the cursor-only reversion in the live preview and save the corrected version.
+- [x] Roll back the portfolio project to checkpoint version c3f3a374 as requested by the user.
+- [x] Confirm the rollback result and restored project state after returning to c3f3a374.
+- [ ] Compare the current no-blur state against Version 1 blur styling to identify exactly which blur treatments should return.
+- [ ] Identify the specific lower section blur the user wants removed while leaving the rest of Version 1 blur intact.
+- [ ] Restore Version 1 blur selectively and keep the disliked lower-section blur removed.
+- [ ] Preserve the current preferred cursor feel while making the blur-only correction.
+- [ ] Verify the selective blur restoration in the live preview and save the corrected version.
+- [ ] Inspect the current panel hover implementation and identify why neighboring panels react during a single-panel hover.
+- [ ] Refine the hover logic and styling so only the intended panel receives the hover treatment.
+- [ ] Verify the corrected panel interactions in the live preview and save the updated version.
+- [ ] Inspect `client/src/pages/Home.tsx` around the failed visual-edit target to determine whether the requested text replacements already exist or still need to be applied manually.
+- [ ] Confirm the intended replacement copy for the affected phrases, including `Modular and Clean Code`, `Anti-Exploit Security`, `UI = Awe`, `Sophisticated & Performant`, `Combat System Specialized`, and `Always Available`.
+- [ ] Apply any missing text updates in `client/src/pages/Home.tsx` without disturbing unrelated styling or layout.
+- [ ] Verify the updated copy in the running portfolio and save a new checkpoint.
