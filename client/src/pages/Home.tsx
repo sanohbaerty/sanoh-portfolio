@@ -93,6 +93,34 @@ const mainProjectWorks: WorkItem[] = [
   },
 ];
 
+const combatFrameworkWorks: WorkItem[] = [
+  {
+    title: "Core Combat Loop",
+    url: "https://www.youtube.com/embed/1Rt1ZwhaPc8",
+    description: "Base combat flow showing attacks, timing, and responsiveness.",
+  },
+  {
+    title: "Hit Detection + Stuns",
+    url: "https://www.youtube.com/embed/kmLFY1KfWIc",
+    description: "Server-validated hitboxes with stun state and combat interruption rules.",
+  },
+  {
+    title: "Status Effects System",
+    url: "https://www.youtube.com/embed/EMJQv439jUs",
+    description: "Burn, speed changes, and state-based modifiers applied through an easy-to-work-with effect system.",
+  },
+  {
+    title: "Adding a New Move (Scalability)",
+    url: "https://www.youtube.com/embed/S-pgZrpP_iw",
+    description: "Shows how easily new abilities integrate into the existing combat architecture.",
+  },
+  {
+    title: "NPC Combat Integration",
+    url: "https://www.youtube.com/embed/xig3j0SqNwE",
+    description: "NPCs use the same combat rules as players and can do the same actions like dash, block, and attack.",
+  },
+];
+
 const miniProjectWorks: WorkItem[] = [
   {
     title: "Punching Game",
@@ -764,9 +792,15 @@ export default function Home() {
             </div>
 
             <WorksGroup
-              title="Main Project"
+              title="RPG Game Project"
               description="Lead scripter on a collaborative Roblox game project. Built for fun so it doesn't interfere with paid work."
               works={mainProjectWorks}
+            />
+
+            <WorksGroup
+              title="Scalable Combat Framework"
+              description="Worked a bit on this one; it is a reusable combat system that is extremely easy to change and works as a scalable combat architecture across multiple games."
+              works={combatFrameworkWorks}
             />
 
             <WorksGroup
