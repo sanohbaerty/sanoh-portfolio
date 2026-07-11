@@ -89,7 +89,7 @@ const mainProjectWorks: WorkItem[] = [
     title: "ADVANCED Admin UI and chat commands",
     url: "https://www.youtube.com/embed/wbai4O9HZRc",
     description:
-      "Advanced admin UI with all time history, offline player modification and moderation, and a sophisticated system.",
+      "Advanced admin UI with all-time history, offline player modification, moderation tools, and a sophisticated command system.",
   },
 ];
 
@@ -107,7 +107,8 @@ const combatFrameworkWorks: WorkItem[] = [
   {
     title: "Status Effects System",
     url: "https://www.youtube.com/embed/EMJQv439jUs",
-    description: "Burn, speed changes, and state-based modifiers applied through an easy-to-work-with effect system.",
+    description:
+      "Burn, speed changes, and state-based modifiers applied through an easy-to-work-with effect system.",
   },
   {
     title: "Adding a New Move (Scalability)",
@@ -117,7 +118,47 @@ const combatFrameworkWorks: WorkItem[] = [
   {
     title: "NPC Combat Integration",
     url: "https://www.youtube.com/embed/xig3j0SqNwE",
-    description: "NPCs use the same combat rules as players and can do the same actions like dash, block, and attack.",
+    description:
+      "NPCs use the same combat rules as players and can perform the same actions, including dashing, blocking, and attacking.",
+  },
+];
+
+const advancedNpcAiWorks: WorkItem[] = [
+  {
+    title: "Framework Overview",
+    url: "https://drive.google.com/file/d/1s_PPVyEinV0JVcy6G4K-oD5Bol2VWVSx/preview",
+    description:
+      "A reusable controller stack powers multiple NPC definitions with configurable models, stats, brains, movement, perception, relationships, and combat behavior.",
+  },
+  {
+    title: "Vision + Target Memory",
+    url: "https://drive.google.com/file/d/1gkdKATtAwhvj0sWcYJeUEx9FG79j3HRM/preview",
+    description:
+      "NPCs detect visible targets, remember last-known positions and velocity, lose confidence over time, search intelligently, and return to normal behavior when memory expires.",
+  },
+  {
+    title: "Movement + Pathfinding",
+    url: "https://drive.google.com/file/d/1jXh7NKjQO9Vn09QJh1fps77MNbnTNORb/preview",
+    description:
+      "Direct movement, obstacle-aware pathfinding, reusable patrol routes, stuck recovery, repath control, and token-based protection from stale movement callbacks.",
+  },
+  {
+    title: "Behavior Brains",
+    url: "https://drive.google.com/file/d/1Ag7Y8AUFfrclCRTknOFbQzmnwzoloNYp/preview",
+    description:
+      "Blackboard-driven brains handle wandering, chasing, attacking, searching, fleeing, and returning home while physical StateMachine states remain separate.",
+  },
+  {
+    title: "Combat + Facing",
+    url: "https://drive.google.com/file/d/1mID_eGBldsJYZdLRkjotLv4pVGLXGC_2/preview",
+    description:
+      "Action requests flow through adapter-driven combat with cooldowns, windup validation, smooth target facing, line-of-sight checks, and server-authoritative damage.",
+  },
+  {
+    title: "Factions + Stress Test",
+    url: "https://drive.google.com/file/d/1eLlE7mq9NeXLWJGoIu0motDAiuLy9WYM/preview",
+    description:
+      "Relationship rules control enemies, allies, neutral targets, and fear behavior while hundreds of active NPCs run perception, memory, brains, movement, and combat together.",
   },
 ];
 
@@ -125,7 +166,7 @@ const miniProjectWorks: WorkItem[] = [
   {
     title: "Punching Game",
     url: "https://www.youtube.com/embed/3E-byUlA2Lw",
-    description: "Basic fist-combat system. Scripting focus, free model visuals.",
+    description: "Basic fist-combat system. Scripting focus, free-model visuals.",
   },
   {
     title: "Quick Game Prototype",
@@ -198,16 +239,19 @@ function WorksGroup({
         {works.map((work) => (
           <article
             key={work.title}
-            className="work-card liquid-glass glass-shimmer overflow-hidden rounded-[15px] border border-white/10">
+            className="work-card liquid-glass glass-shimmer overflow-hidden rounded-[15px] border border-white/10"
+          >
             <div className="aspect-video overflow-hidden border-b border-white/10 bg-black/30">
               <iframe
                 className="h-full w-full"
                 src={work.url}
                 title={work.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                 allowFullScreen
               />
             </div>
+
             <div className="space-y-3 p-5">
               <h4 className="text-[1.05rem] font-bold text-white">{work.title}</h4>
               <p className="text-[0.96rem] leading-7 text-white/60">{work.description}</p>
@@ -305,6 +349,7 @@ export default function Home() {
 
   useEffect(() => {
     const root = document.documentElement;
+
     if (window.matchMedia("(max-width: 767px)").matches) {
       root.classList.remove("has-custom-cursor");
       return;
@@ -314,6 +359,7 @@ export default function Home() {
 
     const dot = cursorDotRef.current;
     const ring = cursorRingRef.current;
+
     if (!dot || !ring) {
       root.classList.remove("has-custom-cursor");
       return;
@@ -321,6 +367,7 @@ export default function Home() {
 
     const onMove = (event: MouseEvent) => {
       targetCursor.current = { x: event.clientX, y: event.clientY };
+
       if (!ringCursor.current.x && !ringCursor.current.y) {
         ringCursor.current = { x: event.clientX, y: event.clientY };
       }
@@ -337,18 +384,25 @@ export default function Home() {
     };
 
     let frame = 0;
+
     const render = () => {
       const { x, y } = targetCursor.current;
+
       ringCursor.current.x += (x - ringCursor.current.x) * 0.16;
       ringCursor.current.y += (y - ringCursor.current.y) * 0.16;
+
       dot.style.transform = `translate3d(${x - 3}px, ${y - 3}px, 0)`;
-      ring.style.transform = `translate3d(${ringCursor.current.x - 10}px, ${ringCursor.current.y - 10}px, 0)`;
+      ring.style.transform = `translate3d(${ringCursor.current.x - 10}px, ${
+        ringCursor.current.y - 10
+      }px, 0)`;
+
       frame = window.requestAnimationFrame(render);
     };
 
     document.addEventListener("mousemove", onMove);
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
+
     onEnter();
     frame = window.requestAnimationFrame(render);
 
@@ -364,6 +418,7 @@ export default function Home() {
   useEffect(() => {
     const canvas = canvasRef.current;
     const hero = heroRef.current;
+
     if (!canvas || !hero) return;
 
     const context = canvas.getContext("2d");
@@ -392,7 +447,11 @@ export default function Home() {
     let animationFrame = 0;
     let particles: Particle[] = [];
     let snippets: CodeSnippet[] = [];
-    const mouse = { x: -9999, y: -9999 };
+
+    const mouse = {
+      x: -9999,
+      y: -9999,
+    };
 
     const createParticle = (): Particle => ({
       x: Math.random() * width,
@@ -415,14 +474,25 @@ export default function Home() {
     const resize = () => {
       width = hero.clientWidth;
       height = hero.clientHeight;
+
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
+
       canvas.width = width * ratio;
       canvas.height = height * ratio;
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
+
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
-      particles = Array.from({ length: Math.max(46, Math.floor(width / 24)) }, createParticle);
-      snippets = Array.from({ length: Math.max(16, Math.floor(width / 110)) }, createSnippet);
+
+      particles = Array.from(
+        { length: Math.max(46, Math.floor(width / 24)) },
+        createParticle,
+      );
+
+      snippets = Array.from(
+        { length: Math.max(16, Math.floor(width / 110)) },
+        createSnippet,
+      );
     };
 
     const onMouseMove = (event: MouseEvent) => {
@@ -441,6 +511,7 @@ export default function Home() {
 
       for (const snippet of snippets) {
         snippet.y -= snippet.speed;
+
         if (snippet.y < -24) {
           snippet.y = height + 18;
           snippet.x = Math.random() * width;
@@ -460,6 +531,7 @@ export default function Home() {
         if (distance < 110) {
           const force = (110 - distance) / 110;
           const angle = Math.atan2(dy, dx);
+
           particle.x += Math.cos(angle) * force * 1.4;
           particle.y += Math.sin(angle) * force * 1.4;
         }
@@ -467,10 +539,16 @@ export default function Home() {
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        if (particle.x < 0 || particle.x > width) particle.vx *= -1;
-        if (particle.y < 0 || particle.y > height) particle.vy *= -1;
+        if (particle.x < 0 || particle.x > width) {
+          particle.vx *= -1;
+        }
+
+        if (particle.y < 0 || particle.y > height) {
+          particle.vy *= -1;
+        }
 
         const cursorGlow = distance < 120 ? 0.25 : 0;
+
         context.beginPath();
         context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         context.fillStyle = `rgba(0, 255, 148, ${particle.baseAlpha + cursorGlow})`;
@@ -479,8 +557,10 @@ export default function Home() {
         for (let j = i + 1; j < particles.length; j += 1) {
           const other = particles[j]!;
           const lineDistance = Math.hypot(particle.x - other.x, particle.y - other.y);
+
           if (lineDistance <= 120) {
             const alpha = (1 - lineDistance / 120) * 0.1;
+
             context.beginPath();
             context.moveTo(particle.x, particle.y);
             context.lineTo(other.x, other.y);
@@ -512,8 +592,11 @@ export default function Home() {
   const handleCardMove = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.currentTarget;
     const glow = target.querySelector<HTMLElement>(".tracking-glow");
+
     if (!glow) return;
+
     const rect = target.getBoundingClientRect();
+
     glow.style.left = `${event.clientX - rect.left}px`;
     glow.style.top = `${event.clientY - rect.top}px`;
     glow.style.opacity = "1";
@@ -522,23 +605,34 @@ export default function Home() {
   const handleCardLeave = (event: React.MouseEvent<HTMLElement>) => {
     const target = event.currentTarget;
     const glow = target.querySelector<HTMLElement>(".tracking-glow");
+
     if (!glow) return;
+
     glow.style.left = "78%";
     glow.style.top = "22%";
     glow.style.opacity = "0";
   };
 
-  const closeMobileNav = () => setMobileOpen(false);
+  const closeMobileNav = () => {
+    setMobileOpen(false);
+  };
 
   const handleAnchorNavigate =
     (sectionId: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault();
       closeMobileNav();
+
       const section = document.getElementById(sectionId);
       if (!section) return;
+
       const navbarOffset = 92;
       const top = section.getBoundingClientRect().top + window.scrollY - navbarOffset;
-      window.scrollTo({ top: Math.max(top, 0), behavior: "smooth" });
+
+      window.scrollTo({
+        top: Math.max(top, 0),
+        behavior: "smooth",
+      });
+
       window.history.replaceState(null, "", `#${sectionId}`);
       setActiveSection(sectionId);
     };
@@ -606,6 +700,7 @@ export default function Home() {
       }
 
       toast.success("Message sent successfully.");
+
       setDiscordTag("");
       setMessage("");
       setConsentPayment(false);
@@ -659,7 +754,10 @@ export default function Home() {
         {mobileOpen ? (
           <div className="mobile-nav-panel liquid-glass-strong mt-3 min-h-[calc(100vh-92px)] rounded-[24px] border border-white/10 px-6 py-6 lg:hidden">
             <div className="mb-10 flex items-center justify-between">
-              <span className="text-sm uppercase tracking-[0.28em] text-white/60">Navigate</span>
+              <span className="text-sm uppercase tracking-[0.28em] text-white/60">
+                Navigate
+              </span>
+
               <button
                 type="button"
                 aria-label="Close navigation"
@@ -669,6 +767,7 @@ export default function Home() {
                 <X className="h-5 w-5 text-[#59FFB9]" />
               </button>
             </div>
+
             <div className="flex flex-col gap-7 pt-6">
               {navItems.map((item) => (
                 <a
@@ -698,6 +797,7 @@ export default function Home() {
             alt=""
             className="ambient-image pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
           />
+
           <div className="absolute inset-0 bg-black/55" />
           <canvas ref={canvasRef} className="absolute inset-0 z-[1] h-full w-full" />
 
@@ -733,7 +833,12 @@ export default function Home() {
                   View My Work
                   <ArrowRight className="h-4 w-4" />
                 </a>
-                <a href="#contact" onClick={handleAnchorNavigate("contact")} className="primary-cta">
+
+                <a
+                  href="#contact"
+                  onClick={handleAnchorNavigate("contact")}
+                  className="primary-cta"
+                >
                   Hire Me
                 </a>
               </div>
@@ -749,6 +854,7 @@ export default function Home() {
             alt=""
             className="services-image pointer-events-none absolute right-0 top-24 hidden h-[70%] w-[48%] max-w-[760px] object-cover object-right md:block"
           />
+
           <div className="container relative z-[2]">
             <div className="max-w-4xl">
               <h2 className="section-title reveal">Services</h2>
@@ -757,6 +863,7 @@ export default function Home() {
             <div className="stagger-grid grid gap-6 lg:grid-cols-3">
               {services.map((service) => {
                 const Icon = service.icon;
+
                 return (
                   <article
                     key={service.title}
@@ -765,14 +872,17 @@ export default function Home() {
                     className="service-card liquid-glass-strong glass-shimmer reveal relative overflow-hidden rounded-[20px] p-8"
                   >
                     <div className="tracking-glow" />
+
                     <div className="relative z-[2] space-y-6">
                       <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00FF94]/20 bg-black/25 text-[#00FF94]">
                         <Icon className="h-7 w-7" />
                       </div>
+
                       <div className="space-y-3">
                         <h3 className="text-[1.6rem] font-bold text-[#00FF94] sm:text-[2rem]">
                           {service.title}
                         </h3>
+
                         <p className="text-[1rem] leading-8 text-white/60 sm:text-[1.08rem]">
                           {service.description}
                         </p>
@@ -799,13 +909,19 @@ export default function Home() {
 
             <WorksGroup
               title="Scalable Combat Framework"
-              description="Worked a bit on this one; it is a reusable combat system that is extremely easy to change and works as a scalable combat architecture across multiple games."
+              description="A reusable combat architecture built for responsive gameplay, server-side validation, status effects, clean state handling, and fast expansion across different games."
               works={combatFrameworkWorks}
             />
 
             <WorksGroup
+              title="Advanced NPC AI Template"
+              description="A reusable Roblox NPC AI framework with modular spawning, perception, target memory, movement, behavior brains, action adapters, relationship rules, debugging tools, and large-scale stress testing."
+              works={advancedNpcAiWorks}
+            />
+
+            <WorksGroup
               title="Mini Projects"
-              description="Smaller builds to flex different scripting skills. Not flashy but rather just made with functionality in mind."
+              description="Smaller builds that demonstrate different scripting skills. These focus on clean functionality and fast implementation rather than custom visual assets."
               works={miniProjectWorks}
             />
           </div>
@@ -815,6 +931,7 @@ export default function Home() {
           <div className="container relative z-[2]">
             <div className="max-w-4xl">
               <h2 className="section-title reveal">Let&apos;s Connect!</h2>
+
               <p className="reveal mb-10 max-w-2xl text-[1.05rem] leading-8 text-white/60 sm:text-[1.12rem]">
                 Message me on Discord (.sanoh) or fill out the form below.
               </p>
@@ -828,9 +945,13 @@ export default function Home() {
                 >
                   <div className="space-y-7">
                     <div>
-                      <label htmlFor="discord-tag" className="text-sm uppercase tracking-[0.18em] text-white/50">
+                      <label
+                        htmlFor="discord-tag"
+                        className="text-sm uppercase tracking-[0.18em] text-white/50"
+                      >
                         Discord Tag
                       </label>
+
                       <input
                         id="discord-tag"
                         value={discordTag}
@@ -841,9 +962,13 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <label htmlFor="message" className="text-sm uppercase tracking-[0.18em] text-white/50">
+                      <label
+                        htmlFor="message"
+                        className="text-sm uppercase tracking-[0.18em] text-white/50"
+                      >
                         Message
                       </label>
+
                       <textarea
                         id="message"
                         rows={5}
@@ -852,6 +977,7 @@ export default function Home() {
                         placeholder="What do you need built?"
                         className="custom-textarea resize-none"
                       />
+
                       <p className="tiny-copy mt-3">
                         Let me know if it&apos;s long-term or short-term and include budget info.
                       </p>
@@ -863,7 +989,9 @@ export default function Home() {
                         checked={consentPayment}
                         onChange={(event) => setConsentPayment(event.target.checked)}
                       />
+
                       <span className="consent-box" />
+
                       <span>
                         I understand that work is performed either per task or with 45% upfront
                         payment; purely post-completion payment is not accepted.
@@ -876,13 +1004,19 @@ export default function Home() {
                         checked={consentDetails}
                         onChange={(event) => setConsentDetails(event.target.checked)}
                       />
+
                       <span className="consent-box" />
+
                       <span>
                         I agree to provide clear details and payment information for the project.
                       </span>
                     </label>
 
-                    <button type="submit" className="primary-cta mt-3 w-full" disabled={isSubmitting}>
+                    <button
+                      type="submit"
+                      className="primary-cta mt-3 w-full"
+                      disabled={isSubmitting}
+                    >
                       {isSubmitting ? "Sending..." : "Send Inquiry"}
                       <Send className="h-4 w-4" />
                     </button>
@@ -897,18 +1031,22 @@ export default function Home() {
                     alt=""
                     className="contact-image absolute inset-0 h-full w-full object-cover object-center"
                   />
+
                   <div className="absolute inset-0 bg-black/28" />
 
                   <div className="relative z-[2] ml-auto max-w-[430px] space-y-5 text-right">
                     <p className="text-[0.82rem] uppercase tracking-[0.3em] text-[#00FF94]">
                       Discord: .sanoh
                     </p>
+
                     <div className="space-y-3 text-[0.95rem] text-white/50 sm:text-[1rem]">
                       {contactSnippets.map((snippet, index) => (
                         <p
                           key={snippet}
                           className="animate-[floatUp_4s_ease-in-out_infinite]"
-                          style={{ animationDelay: `${index * 0.35}s` }}
+                          style={{
+                            animationDelay: `${index * 0.35}s`,
+                          }}
                         >
                           {snippet}
                         </p>
