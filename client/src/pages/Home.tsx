@@ -44,20 +44,22 @@ const navItems = [
 
 const services: ServiceItem[] = [
   {
-    title: "Deployment",
+    title: "Advanced Systems",
     icon: CloudCog,
-    description: "Always available and works with incredible speed.",
+    description:
+      "Combat, NPC AI, data, admin, matchmaking, UI, and other gameplay systems.",
   },
   {
     title: "Experience",
     icon: Braces,
-    description: "Scripting fullstack since 2021. Everything but vehicle-work.",
+    description:
+      "Roblox scripting since 2021 across RPGs, horror games, combat projects, and full game systems.",
   },
   {
-    title: "Developing",
+    title: "Modular Development",
     icon: Layers3,
     description:
-      "Modular, readable code. Other scripters love me for my reusable, readable, and modular code.",
+      "Readable, reusable code built so other scripters can understand, maintain, and expand it.",
   },
 ];
 
@@ -218,6 +220,28 @@ const servicesAsset =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663552534182/AepXHzyP2458FXmTq6i8Ca/sanoh-services-texture-fh26FRpfeRwe28iGbAYBnx.webp";
 const contactAsset =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663552534182/AepXHzyP2458FXmTq6i8Ca/sanoh-contact-orb-scene-7KHkiJ3uvaTTiCqwDCRoVM.webp";
+
+function WorksCategoryHeading({
+  eyebrow,
+  title,
+  description,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="reveal max-w-4xl space-y-3 pt-2">
+      <p className="text-[0.76rem] font-semibold uppercase tracking-[0.28em] text-[#00FF94]">
+        {eyebrow}
+      </p>
+      <h3 className="text-[clamp(1.8rem,4vw,3.1rem)] font-bold tracking-[-0.045em] text-white">
+        {title}
+      </h3>
+      <p className="muted-copy max-w-2xl text-[1.02rem] leading-8">{description}</p>
+    </div>
+  );
+}
 
 function WorksGroup({
   title,
@@ -819,9 +843,9 @@ export default function Home() {
                 </span>
               </div>
 
-              <p className="reveal mt-7 max-w-[500px] text-[1.05rem] leading-8 text-white/60 sm:text-[1.22rem] md:text-[1.34rem]">
-                Building immersive Roblox games since 2021 with clean code, modular systems,
-                and ultimate customer satisfaction.
+              <p className="reveal mt-7 max-w-[560px] text-[1.05rem] leading-8 text-white/60 sm:text-[1.22rem] md:text-[1.34rem]">
+                Building advanced Roblox systems since 2021 with clean, modular code that
+                other developers can understand and expand.
               </p>
 
               <div className="reveal hero-actions mt-10 flex flex-col gap-4 sm:flex-row">
@@ -896,34 +920,62 @@ export default function Home() {
         </section>
 
         <section id="works" className="section-shell relative px-4 md:px-6">
-          <div className="container relative z-[2] space-y-16">
+          <div className="container relative z-[2] space-y-20">
             <div className="max-w-4xl">
-              <h2 className="section-title reveal">My Works</h2>
+              <h2 className="section-title reveal">My Work</h2>
+              <p className="reveal mt-5 max-w-2xl text-[1.05rem] leading-8 text-white/60">
+                My strongest system work is shown first, followed by project experience and
+                smaller builds covering other areas of Roblox development.
+              </p>
             </div>
 
-            <WorksGroup
-              title="RPG Game Project"
-              description="Lead scripter on a collaborative Roblox game project. Built for fun so it doesn't interfere with paid work."
-              works={mainProjectWorks}
-            />
+            <div className="space-y-16">
+              <WorksCategoryHeading
+                eyebrow="Featured Systems"
+                title="Advanced Frameworks"
+                description="The strongest examples of how I structure, scale, and connect large Roblox systems."
+              />
 
-            <WorksGroup
-              title="Scalable Combat Framework"
-              description="A reusable combat architecture built for responsive gameplay, server-side validation, status effects, clean state handling, and fast expansion across different games."
-              works={combatFrameworkWorks}
-            />
+              <WorksGroup
+                title="Scalable Combat Framework"
+                description="A reusable combat architecture built for responsive gameplay, server-side validation, status effects, clean state handling, and fast expansion across different games."
+                works={combatFrameworkWorks}
+              />
 
-            <WorksGroup
-              title="Advanced NPC AI Template"
-              description="A reusable Roblox NPC AI framework with modular spawning, perception, target memory, movement, behavior brains, action adapters, relationship rules, debugging tools, and large-scale stress testing."
-              works={advancedNpcAiWorks}
-            />
+              <WorksGroup
+                title="Advanced NPC AI Framework"
+                description="A reusable Roblox NPC AI framework with modular spawning, perception, target memory, movement, behavior brains, action adapters, relationship rules, debugging tools, and large-scale stress testing."
+                works={advancedNpcAiWorks}
+              />
+            </div>
 
-            <WorksGroup
-              title="Mini Projects"
-              description="Smaller builds that demonstrate different scripting skills. These focus on clean functionality and fast implementation rather than custom visual assets."
-              works={miniProjectWorks}
-            />
+            <div className="space-y-16 border-t border-white/10 pt-16">
+              <WorksCategoryHeading
+                eyebrow="Project Experience"
+                title="Collaborative Game Work"
+                description="Systems created while working with other developers on larger Roblox game projects."
+              />
+
+              <WorksGroup
+                title="Reawakening of the Prodigious Swords"
+                description="A collaborative RPG passion project where I work as a lead scripter. It is separate from paid work and does not affect commission availability."
+                works={mainProjectWorks}
+              />
+            </div>
+
+            <div className="space-y-16 border-t border-white/10 pt-16">
+              <WorksCategoryHeading
+                eyebrow="Additional Work"
+                title="Mini Projects"
+                description="Smaller builds that show range, fast implementation, and experience across different gameplay systems."
+              />
+
+              <WorksGroup
+                title="Other Systems and Prototypes"
+                description="These projects focus on scripting and functionality rather than custom visual assets."
+                works={miniProjectWorks}
+              />
+            </div>
           </div>
         </section>
 
