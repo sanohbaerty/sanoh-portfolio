@@ -128,37 +128,37 @@ const combatFrameworkWorks: WorkItem[] = [
 const advancedNpcAiWorks: WorkItem[] = [
   {
     title: "Framework Overview",
-    url: "https://drive.google.com/file/d/1s_PPVyEinV0JVcy6G4K-oD5Bol2VWVSx/preview",
+    url: "https://drive.google.com/file/d/1eLlE7mq9NeXLWJGoIu0motDAiuLy9WYM/preview",
     description:
       "A reusable controller stack powers multiple NPC definitions with configurable models, stats, brains, movement, perception, relationships, and combat behavior.",
   },
   {
     title: "Vision + Target Memory",
-    url: "https://drive.google.com/file/d/1gkdKATtAwhvj0sWcYJeUEx9FG79j3HRM/preview",
+    url: "https://drive.google.com/file/d/1s_PPVyEinV0JVcy6G4K-oD5Bol2VWVSx/preview",
     description:
       "NPCs detect visible targets, remember last-known positions and velocity, lose confidence over time, search intelligently, and return to normal behavior when memory expires.",
   },
   {
     title: "Movement + Pathfinding",
-    url: "https://drive.google.com/file/d/1jXh7NKjQO9Vn09QJh1fps77MNbnTNORb/preview",
+    url: "https://drive.google.com/file/d/1gkdKATtAwhvj0sWcYJeUEx9FG79j3HRM/preview",
     description:
       "Direct movement, obstacle-aware pathfinding, reusable patrol routes, stuck recovery, repath control, and token-based protection from stale movement callbacks.",
   },
   {
     title: "Behavior Brains",
-    url: "https://drive.google.com/file/d/1Ag7Y8AUFfrclCRTknOFbQzmnwzoloNYp/preview",
+    url: "https://drive.google.com/file/d/1mID_eGBldsJYZdLRkjotLv4pVGLXGC_2/preview",
     description:
       "Blackboard-driven brains handle wandering, chasing, attacking, searching, fleeing, and returning home while physical StateMachine states remain separate.",
   },
   {
     title: "Combat + Facing",
-    url: "https://drive.google.com/file/d/1mID_eGBldsJYZdLRkjotLv4pVGLXGC_2/preview",
+    url: "https://drive.google.com/file/d/1Ag7Y8AUFfrclCRTknOFbQzmnwzoloNYp/preview",
     description:
       "Action requests flow through adapter-driven combat with cooldowns, windup validation, smooth target facing, line-of-sight checks, and server-authoritative damage.",
   },
   {
     title: "Factions + Stress Test",
-    url: "https://drive.google.com/file/d/1eLlE7mq9NeXLWJGoIu0motDAiuLy9WYM/preview",
+    url: "https://drive.google.com/file/d/1jXh7NKjQO9Vn09QJh1fps77MNbnTNORb/preview",
     description:
       "Relationship rules control enemies, allies, neutral targets, and fear behavior while hundreds of active NPCs run perception, memory, brains, movement, and combat together.",
   },
@@ -259,15 +259,18 @@ function WorksGroup({
         <p className="muted-copy max-w-2xl text-[1.02rem] leading-8">{description}</p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {works.map((work) => (
+      <div className="project-grid grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {works.map((work, index) => (
           <article
             key={work.title}
-            className="work-card liquid-glass glass-shimmer overflow-hidden rounded-[15px] border border-white/10"
+            className="work-card liquid-glass glass-shimmer group overflow-hidden rounded-[15px] border border-white/10"
           >
-            <div className="aspect-video overflow-hidden border-b border-white/10 bg-black/30">
+            <div className="relative aspect-video overflow-hidden border-b border-white/10 bg-black/30">
+              <span className="absolute left-3 top-3 z-[2] rounded-full border border-white/10 bg-black/70 px-3 py-1 text-[0.66rem] uppercase tracking-[0.18em] text-[#78ffc7] backdrop-blur-md">
+                Demo {String(index + 1).padStart(2, "0")}
+              </span>
               <iframe
-                className="h-full w-full"
+                className="h-full w-full opacity-80 transition duration-500 group-hover:opacity-100"
                 src={work.url}
                 title={work.title}
                 loading="lazy"
@@ -276,8 +279,11 @@ function WorksGroup({
               />
             </div>
 
-            <div className="space-y-3 p-5">
-              <h4 className="text-[1.05rem] font-bold text-white">{work.title}</h4>
+            <div className="space-y-3 p-5 sm:p-6">
+              <div className="flex items-start justify-between gap-4">
+                <h4 className="text-[1.05rem] font-bold text-white">{work.title}</h4>
+                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-[#00FF94] transition-transform duration-300 group-hover:translate-x-1" />
+              </div>
               <p className="text-[0.96rem] leading-7 text-white/60">{work.description}</p>
             </div>
           </article>
@@ -682,34 +688,13 @@ export default function Home() {
     setIsSubmitting(true);
 
     const payload = {
-      content: "<@1060002966125432842>",
-      allowed_mentions: {
-        users: ["1060002966125432842"],
-      },
-      embeds: [
-        {
-          title: "New Sanoh Portfolio Inquiry",
-          color: 65428,
-          fields: [
-            {
-              name: "Discord Tag",
-              value: discordTag.trim(),
-              inline: true,
-            },
-            {
-              name: "Message",
-              value: message.trim(),
-              inline: false,
-            },
-          ],
-          timestamp: new Date().toISOString(),
-        },
-      ],
+      discordTag: discordTag.trim(),
+      message: message.trim(),
     };
 
     try {
       const response = await fetch(
-        "https://ptb.discord.com/api/webhooks/1482478580926775456/u70dEjWoi_NBzQrqFg8TXxLSXEZU02aceOGVX12nKjjSLarN35rsBEiimBRcTTep74aJ",
+        "/api/contact",
         {
           method: "POST",
           headers: {
@@ -826,45 +811,38 @@ export default function Home() {
           <canvas ref={canvasRef} className="absolute inset-0 z-[1] h-full w-full" />
 
           <div className="container relative z-[2]">
-            <div className="mx-auto flex max-w-[980px] flex-col items-center text-center">
-              <div className="reveal hero-badge liquid-glass mb-8 rounded-full px-4 py-2 text-[0.95rem] text-[#00FF94] sm:text-[1.05rem]">
-                Roblox Scripter · Available for hire
-              </div>
+            <div className="hero-layout flex justify-center pb-12 lg:pb-0">
+              <div className="flex max-w-[920px] flex-col items-center text-center">
+                <div className="reveal hero-badge liquid-glass mb-7 inline-flex items-center rounded-full px-4 py-2 text-[0.78rem] uppercase tracking-[0.17em] text-[#78ffc7] sm:text-[0.86rem]">
+                  Roblox systems engineer · Open for commissions
+                </div>
 
-              <h1 className="reveal hero-title">
-                <span className="hero-title-main" data-text="SANOH">
-                  SANOH
-                </span>
-              </h1>
+                <p className="reveal mb-3 text-[0.72rem] uppercase tracking-[0.38em] text-white/40">
+                  Full-stack Luau developer / Since 2021
+                </p>
 
-              <div className="reveal mt-3">
-                <span className="glitch-text" data-text="FULLSTACK SCRIPTER">
-                  FULLSTACK SCRIPTER
-                </span>
-              </div>
+                <h1 className="reveal hero-title">
+                  <span className="hero-title-main" data-text="SANOH">SANOH</span>
+                </h1>
 
-              <p className="reveal mt-7 max-w-[560px] text-[1.05rem] leading-8 text-white/60 sm:text-[1.22rem] md:text-[1.34rem]">
-                Building advanced Roblox systems since 2021 with clean, modular code that
-                other developers can understand and expand.
-              </p>
+                <h2 className="reveal mt-6 max-w-[780px] text-[clamp(1.55rem,3vw,3.15rem)] font-semibold leading-[1.06] tracking-[-0.055em] text-white">
+                  Roblox systems that stay fast, secure,
+                  <span className="text-[#00FF94]"> and easy to extend.</span>
+                </h2>
 
-              <div className="reveal hero-actions mt-10 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="#works"
-                  onClick={handleAnchorNavigate("works")}
-                  className="ghost-cta liquid-glass-strong"
-                >
-                  View My Work
-                  <ArrowRight className="h-4 w-4" />
-                </a>
+                <p className="reveal mt-6 max-w-[650px] text-[1rem] leading-8 text-white/60 sm:text-[1.12rem]">
+                  Building advanced Roblox systems since 2021 with clean, modular code that
+                  other developers can understand and expand.
+                </p>
 
-                <a
-                  href="#contact"
-                  onClick={handleAnchorNavigate("contact")}
-                  className="primary-cta"
-                >
-                  Hire Me
-                </a>
+                <div className="reveal hero-actions mt-9 flex flex-col justify-center gap-4 sm:flex-row">
+                  <a href="#works" onClick={handleAnchorNavigate("works")} className="primary-cta">
+                    Explore systems <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a href="#contact" onClick={handleAnchorNavigate("contact")} className="ghost-cta liquid-glass-strong">
+                    Hire Me
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -881,7 +859,11 @@ export default function Home() {
 
           <div className="container relative z-[2]">
             <div className="max-w-4xl">
-              <h2 className="section-title reveal">Services</h2>
+              <p className="reveal mb-5 text-xs uppercase tracking-[0.32em] text-[#00FF94]">// Capabilities</p>
+              <h2 className="section-title reveal">What I build.</h2>
+              <p className="reveal -mt-5 mb-12 max-w-2xl text-[1.05rem] leading-8 text-white/55">
+                Serious systems work—from the first prototype through live-game complexity.
+              </p>
             </div>
 
             <div className="stagger-grid grid gap-6 lg:grid-cols-3">
@@ -898,8 +880,13 @@ export default function Home() {
                     <div className="tracking-glow" />
 
                     <div className="relative z-[2] space-y-6">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00FF94]/20 bg-black/25 text-[#00FF94]">
-                        <Icon className="h-7 w-7" />
+                      <div className="flex items-center justify-between">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#00FF94]/20 bg-black/25 text-[#00FF94]">
+                          <Icon className="h-7 w-7" />
+                        </div>
+                        <span className="text-[0.67rem] uppercase tracking-[0.2em] text-white/25">
+                          0{services.indexOf(service) + 1}
+                        </span>
                       </div>
 
                       <div className="space-y-3">
@@ -922,10 +909,11 @@ export default function Home() {
         <section id="works" className="section-shell relative px-4 md:px-6">
           <div className="container relative z-[2] space-y-20">
             <div className="max-w-4xl">
-              <h2 className="section-title reveal">My Work</h2>
+              <p className="reveal mb-5 text-xs uppercase tracking-[0.32em] text-[#00FF94]">// Selected work</p>
+              <h2 className="section-title reveal">Systems in motion.</h2>
               <p className="reveal mt-5 max-w-2xl text-[1.05rem] leading-8 text-white/60">
-                My strongest system work is shown first, followed by project experience and
-                smaller builds covering other areas of Roblox development.
+                Real system demos, implementation details, and scalable frameworks. Start with
+                the flagship combat and NPC architecture below.
               </p>
             </div>
 
@@ -982,10 +970,12 @@ export default function Home() {
         <section id="contact" className="section-shell relative overflow-hidden px-4 md:px-6">
           <div className="container relative z-[2]">
             <div className="max-w-4xl">
-              <h2 className="section-title reveal">Let&apos;s Connect!</h2>
+              <p className="reveal mb-5 text-xs uppercase tracking-[0.32em] text-[#00FF94]">// Commission</p>
+              <h2 className="section-title reveal">Tell me what you&apos;re building.</h2>
 
               <p className="reveal mb-10 max-w-2xl text-[1.05rem] leading-8 text-white/60 sm:text-[1.12rem]">
-                Message me on Discord (.sanoh) or fill out the form below.
+                If the scope is clear and the game needs clean, production-ready scripting,
+                message me on Discord <span className="text-white">(.sanoh)</span> or send the brief below.
               </p>
             </div>
 
@@ -1110,6 +1100,13 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <footer className="border-t border-white/8 px-4 py-8 md:px-6">
+          <div className="container flex flex-col gap-4 text-[0.72rem] uppercase tracking-[0.18em] text-white/35 sm:flex-row sm:items-center sm:justify-between">
+            <p>Sanoh / Roblox systems developer</p>
+            <p>Luau · Combat · NPC AI · Data · UI</p>
+          </div>
+        </footer>
       </main>
     </div>
   );

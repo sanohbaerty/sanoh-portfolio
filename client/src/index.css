@@ -803,6 +803,31 @@
   }
 }
 
+@layer components {
+  .hero-layout {
+    width: 100%;
+  }
+
+  .project-grid .work-card {
+    min-height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .hero-layout {
+      padding-top: 3rem;
+    }
+
+    .hero-title {
+      font-size: clamp(5.25rem, 29vw, 8rem);
+    }
+
+    .section-title {
+      font-size: clamp(3.1rem, 15vw, 5.2rem);
+      letter-spacing: -0.07em;
+    }
+  }
+}
+
 @keyframes glassSweep {
   0% {
     transform: translateX(-22%) rotate(16deg);
