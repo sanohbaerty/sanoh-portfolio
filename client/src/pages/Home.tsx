@@ -1048,7 +1048,7 @@ export default function Home() {
             <div className="reveal max-w-4xl">
               <h2 id="client-work-title" className="section-title">Client work.</h2>
               <p className="muted-copy text-[1.02rem] leading-8">
-                Two completed commissions. Project details stay private.
+                Some work I've done for clients. Project details stay private.
               </p>
             </div>
             <div className="grid items-start gap-6 md:grid-cols-2">
