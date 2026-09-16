@@ -37,3 +37,5 @@ jobs:
           git add client/src/pages/Home.tsx
           git commit -m "Update client work copy"
           git push
+
+# trigger
