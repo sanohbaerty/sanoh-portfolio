@@ -30,6 +30,38 @@ type ServiceItem = {
   icon: typeof CloudCog;
 };
 
+type CommissionItem = {
+  title: string;
+  description: string;
+  payment: string;
+  feedback?: string;
+  proof: { src: string; label: string }[];
+};
+
+const commissions: CommissionItem[] = [
+  {
+    title: "Multi-stage development",
+    description: "Private Roblox commission delivered in stages through to final handoff.",
+    payment: "160K+ Robux",
+    proof: [
+      { src: "/commissions/staged-delivery.png", label: "Final delivery" },
+      { src: "/commissions/staged-payments.png", label: "Robux payments" },
+      { src: "/commissions/staged-payment-extra.png", label: "Additional Robux payment" },
+    ],
+  },
+  {
+    title: "Project scripting",
+    description: "Completed a private Roblox commission, with the client asking to work together on future updates.",
+    payment: "$150+",
+    feedback: "You've done a great job, and at this point you're 100% my go-to developer for the project.",
+    proof: [
+      { src: "/commissions/project-delivery.png", label: "Delivery and client reply" },
+      { src: "/commissions/project-payments.png", label: "Payment receipts" },
+      { src: "/commissions/project-feedback.png", label: "Client feedback" },
+    ],
+  },
+];
+
 type CursorPoint = {
   x: number;
   y: number;
@@ -39,6 +71,7 @@ const navItems = [
   { id: "home", label: "<Home />" },
   { id: "services", label: "<Services />" },
   { id: "works", label: "<Works />" },
+  { id: "client-work", label: "<Client Work />" },
   { id: "contact", label: "<Contact />" },
 ] as const;
 
@@ -290,6 +323,49 @@ function WorksGroup({
         ))}
       </div>
     </div>
+  );
+}
+
+function CommissionCard({ commission }: { commission: CommissionItem }) {
+  return (
+    <article className="liquid-glass rounded-[15px] border border-white/10 p-6 sm:p-8">
+      <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
+        <span className="text-[#78ffc7]">Completed</span>
+        <span className="text-white/70">{commission.payment} paid</span>
+      </div>
+      <h4 className="mt-5 text-xl font-semibold tracking-tight text-white">
+        {commission.title}
+      </h4>
+      <p className="mt-3 text-[0.96rem] leading-7 text-white/60">
+        {commission.description}
+      </p>
+      {commission.feedback && (
+        <figure className="mt-6 border-t border-white/10 pt-5">
+          <blockquote className="text-[0.96rem] leading-7 text-white/80">
+            &ldquo;{commission.feedback}&rdquo;
+          </blockquote>
+          <figcaption className="mt-3 text-sm text-white/50">Client feedback</figcaption>
+        </figure>
+      )}
+      <details className="mt-6 border-t border-white/10 pt-5">
+        <summary className="w-fit cursor-pointer rounded text-sm text-[#78ffc7] outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#78ffc7]">
+          Delivery &amp; payment
+        </summary>
+        <p className="mt-4 text-xs leading-6 text-white/50">
+          Cropped originals. Client and project details are covered for privacy.
+        </p>
+        <div className="mt-4 space-y-5">
+          {commission.proof.map((proof) => (
+            <figure key={proof.src}>
+              <a href={proof.src} target="_blank" rel="noopener noreferrer" className="block rounded-lg outline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#78ffc7]" aria-label={`${proof.label} — open full-size image`}>
+                <img src={proof.src} alt={proof.label} loading="lazy" className="h-auto w-full rounded-lg border border-white/10" />
+              </a>
+              <figcaption className="mt-2 text-xs text-white/50">{proof.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </details>
+    </article>
   );
 }
 
@@ -963,6 +1039,22 @@ export default function Home() {
                 description="These projects focus on scripting and functionality rather than custom visual assets."
                 works={miniProjectWorks}
               />
+            </div>
+          </div>
+        </section>
+
+        <section id="client-work" aria-labelledby="client-work-title" className="section-shell relative px-4 md:px-6">
+          <div className="container relative z-[2] space-y-10">
+            <div className="reveal max-w-4xl">
+              <h2 id="client-work-title" className="section-title">Client work.</h2>
+              <p className="muted-copy text-[1.02rem] leading-8">
+                Two completed commissions. Project details stay private.
+              </p>
+            </div>
+            <div className="grid items-start gap-6 md:grid-cols-2">
+              {commissions.map((commission) => (
+                <CommissionCard key={commission.title} commission={commission} />
+              ))}
             </div>
           </div>
         </section>
